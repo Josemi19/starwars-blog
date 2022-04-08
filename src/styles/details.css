@@ -1,0 +1,6 @@
+.card-footer{
+    border-top: solid red;
+    color: red;
+    display: flex;
+    justify-content: space-around;
+}

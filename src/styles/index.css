@@ -1,3 +1,6 @@
-/* 
-    General Styles
-*/
+.header{
+    color: red;
+}
+.scroll{
+    overflow-x: scroll;
+}
