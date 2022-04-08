@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Favorites from "../component/Favorites.jsx";
+import { useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+	const { store } = useContext(Context)
 	return (
 		<>
 			<nav className="navbar navbar-light bg-light">
@@ -16,17 +18,18 @@ export const Navbar = () => {
 						/>
 					</Link>
 					<div className="btn-group">
-				<button
-					type="button"
-					className="btn btn-danger dropdown-toggle"
-					data-bs-toggle="dropdown"
-					aria-expanded="false">
-					Favoritos
-				</button>
-				<ul className="dropdown-menu">
-							<Favorites/>
-						</ul>
-			</div>
+						<div className="btn-group">
+							<button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+								Favorites
+							</button>
+							{/* {store.favorites.map((favs, index) => 
+							(
+								<ul key={index} className="dropdown-menu">
+									<li><a className="dropdown-item" href="#">{favs}</a></li>
+								</ul>
+							))} */}
+						</div>
+					</div>
 				</div>
 			</nav>
 		</>

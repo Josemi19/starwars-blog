@@ -7,9 +7,9 @@ import Vehicules from "./Vehicules.jsx";
 export const Home = () => {
 	return (
 		<>
-			<Characters/>
+			{/* <Characters/>
 			<Planets/>
-			<Vehicules/>
+			<Vehicules/> */}
 		</>
 	)
 }
