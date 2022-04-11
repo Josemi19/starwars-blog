@@ -1,3 +1,4 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -21,10 +22,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							data.results.map(async (item) => {
 								let responseTwo = await fetch(`${store.urlBase}${nature}/${item.uid}`)
 								let dataTwo = await responseTwo.json()
-								console.log(dataTwo.results)
 								setStore({
 									...store,
-									[nature]:[...store[nature],dataTwo.results]
+									[nature]:[...store[nature],dataTwo.result]
 								})
 								localStorage.setItem(nature, JSON.stringify(store[nature]))
 							})
@@ -36,44 +36,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			addFavs: (item) =>{
+			addFavs: (name) =>{
 				const store = getStore()
-				setStore({
-					...store, 
-					favorites: [...store[favorites], item]
+				let exist = store.favorites.find((item)=>{
+					return(
+						item == name
+					)
 				})
-				localStorage.setItem(favorites, JSON.stringify(store[favorites]))
+				if(!exist){
+					setStore({
+						...store,
+						favorites:[...store.favorites,name]
+					})
+					localStorage.setItem("favorites" ,JSON.stringify(store.favorites))
+				}
+				
+			},
+
+			deleteFavs: (id) =>{
+				const store = getStore()
+				let newFavs = store.favorites.filter((item,index)=>{
+					return(
+						id != index
+					)
+				})
+				store.favorites = newFavs
+				setStore({
+					...store,
+					favorites: store.favorites
+				})
+				localStorage.setItem("favorites", JSON.stringify(store.favorites))
 			}
-			// getCharacter: async ()=>{
-			// 	try {
-			// 		const store = getStore()
-			// 		let response = await fetch(`${store.urlBase}people`);
-			// 		let data = await response.json();
-			// 		setStore({...store, character: data.results });
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// },
-			// getPlanets: async ()=>{
-			// 	try {
-			// 		const store = getStore()
-			// 		let response = await fetch(`${store.urlBase}planets`);
-			// 		let data = await response.json();
-			// 		setStore({...store, planets: data.results });
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// },
-			// getVehicles: async ()=>{
-			// 	try {
-			// 		const store = getStore()
-			// 		let response = await fetch(`${store.urlBase}vehicles`);
-			// 		let data = await response.json();
-			// 		setStore({...store, vehicles: data.results });
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// }
+
 		}
 	};
 };

@@ -4,3 +4,9 @@
 .scroll{
     overflow-x: scroll;
 }
+.cora{
+    color: red;
+}
+.parche{
+    border-radius: 20px;
+}

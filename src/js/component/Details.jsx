@@ -1,31 +1,19 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router";
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import "../../styles/details.css"
+import { useContext } from "react";
+import {Context} from "../store/appContext"
+import { useParams } from "react-router";
 
 const Details = () => {
 	let navegar = useNavigate();
-	let params = useParams();
-
-	const [detalles, setDetalles] = useState({});
-
-	const getDetalles = async () => {
-		let response = await fetch(
-			`https://www.swapi.tech/api/${params.nature}/${params.id}`
-		);
-		let data = await response.json();
-		setDetalles(data.result);
-	};
-
-
-	useEffect(() => {
-		getDetalles();
-	}, []);
-
-
+	let {store} = useContext(Context)
+	let {people, planets, vehicles} = store
+	let params = useParams()
+	let {id,nature} = params
 	return (
 		<>
-			{params.nature == "people" ? //PRIMER IF
+			{nature == "people" ? //PRIMER IF
 				<div className="card mb-3">
 					<div className="row g-0">
 						<div className="col-md-4">
@@ -37,9 +25,9 @@ const Details = () => {
 						</div>
 						<div className="col-md-8">
 							<div className="card-body">
-								<h1 className="card-title">{detalles.properties?.name}</h1>
+								<h1 className="card-title">{people[id].properties.name}</h1>
 								<p className="card-text">
-									{detalles.description}
+									{people[id].description}
 								</p>
 							</div>
 						</div>
@@ -47,27 +35,27 @@ const Details = () => {
 					<div className="card-footer card-footer">
 						<p className="card-text">
 							Name
-							<p className="pt-3">{detalles.properties?.name}</p>
+							<p className="pt-3">{people[id].properties?.name}</p>
 						</p>
 						<p className="card-text">
 							BirthYear
-							<p className="pt-3">{detalles.properties?.birth_year}</p>
+							<p className="pt-3">{people[id].properties?.birth_year}</p>
 						</p>
 						<p className="card-text">
 							Height
-							<p className="pt-3">{detalles.properties?.height}</p>
+							<p className="pt-3">{people[id].properties?.height}</p>
 						</p>
 						<p className="card-text">
 							Hair-Color
-							<p className="pt-3">{detalles.properties?.hair_color}</p>
+							<p className="pt-3">{people[id].properties?.hair_color}</p>
 						</p>
 						<p className="card-text">
 							Eyes-Color
-							<p className="pt-3">{detalles.properties?.eye_color}</p>
+							<p className="pt-3">{people[id].properties?.eye_color}</p>
 						</p>
 						<p className="card-text">
 							Gender
-							<p className="pt-3">{detalles.properties?.gender}</p>
+							<p className="pt-3">{people[id].properties?.gender}</p>
 						</p>
 					</div>
 					<button
@@ -79,7 +67,7 @@ const Details = () => {
 						Go Back
 					</button>
 				</div>
-				: params.nature == "planets" ? //SEGUNDO IF
+				: nature == "planets" ? //SEGUNDO IF
 				<div className="card mb-3">
 				<div className="row g-0">
 					<div className="col-md-4">
@@ -91,9 +79,9 @@ const Details = () => {
 					</div>
 					<div className="col-md-8">
 						<div className="card-body">
-							<h1 className="card-title">{detalles.properties?.name}</h1>
+							<h1 className="card-title">{planets[id].properties?.name}</h1>
 							<p className="card-text">
-								{detalles.description}
+								{planets[id].description}
 							</p>
 						</div>
 					</div>
@@ -101,27 +89,27 @@ const Details = () => {
 				<div className="card-footer card-footer">
 					<p className="card-text">
 						Name
-						<p className="pt-3">{detalles.properties?.name}</p>
+						<p className="pt-3">{planets[id].properties?.name}</p>
 					</p>
 					<p className="card-text">
-						BirthYear
-						<p className="pt-3">{detalles.properties?.birth_year}</p>
+						Population
+						<p className="pt-3">{planets[id].properties?.population}</p>
 					</p>
 					<p className="card-text">
-						Height
-						<p className="pt-3">{detalles.properties?.height}</p>
+						Climate
+						<p className="pt-3">{planets[id].properties?.climate}</p>
 					</p>
 					<p className="card-text">
-						Hair-Color
-						<p className="pt-3">{detalles.properties?.hair_color}</p>
+						Terrain
+						<p className="pt-3">{planets[id].properties?.terrain}</p>
 					</p>
 					<p className="card-text">
-						Eyes-Color
-						<p className="pt-3">{detalles.properties?.eye_color}</p>
+						Gravity
+						<p className="pt-3">{planets[id].properties?.gravity}</p>
 					</p>
 					<p className="card-text">
-						Gender
-						<p className="pt-3">{detalles.properties?.gender}</p>
+						Diameter
+						<p className="pt-3">{planets[id].properties?.diameter}</p>
 					</p>
 				</div>
 				<button
@@ -133,7 +121,7 @@ const Details = () => {
 					Go Back
 				</button>
 			</div>
-			: params.nature == "vehicles" ? //TERCER IF
+			: nature == "vehicles" ? //TERCER IF
 			<div className="card mb-3">
 			<div className="row g-0">
 				<div className="col-md-4">
@@ -145,9 +133,9 @@ const Details = () => {
 				</div>
 				<div className="col-md-8">
 					<div className="card-body">
-						<h1 className="card-title">{detalles.properties?.name}</h1>
+						<h1 className="card-title">{vehicles[id].properties?.name}</h1>
 						<p className="card-text">
-							{detalles.description}
+							{vehicles[id].description}
 						</p>
 					</div>
 				</div>
@@ -155,27 +143,27 @@ const Details = () => {
 			<div className="card-footer card-footer">
 				<p className="card-text">
 					Name
-					<p className="pt-3">{detalles.properties?.name}</p>
+					<p className="pt-3">{vehicles[id].properties?.name}</p>
 				</p>
 				<p className="card-text">
-					BirthYear
-					<p className="pt-3">{detalles.properties?.birth_year}</p>
+					Model
+					<p className="pt-3">{vehicles[id].properties?.model}</p>
 				</p>
 				<p className="card-text">
-					Height
-					<p className="pt-3">{detalles.properties?.height}</p>
+					Max Speed
+					<p className="pt-3">{vehicles[id].properties?.max_atmosphering_speed}</p>
 				</p>
 				<p className="card-text">
-					Hair-Color
-					<p className="pt-3">{detalles.properties?.hair_color}</p>
+					Manufacturer
+					<p className="pt-3">{vehicles[id].properties?.manufacturer}</p>
 				</p>
 				<p className="card-text">
-					Eyes-Color
-					<p className="pt-3">{detalles.properties?.eye_color}</p>
+					Vehicle Class
+					<p className="pt-3">{vehicles[id].properties?.vehicle_class}</p>
 				</p>
 				<p className="card-text">
-					Gender
-					<p className="pt-3">{detalles.properties?.gender}</p>
+					Passengers
+					<p className="pt-3">{vehicles[id].properties?.passengers}</p>
 				</p>
 			</div>
 			<button

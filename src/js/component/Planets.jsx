@@ -19,13 +19,25 @@ const Planets = () => {
 							/>
 							<div className="card-body">
 								<h5 className="card-title">
-									{planetas.name}
+									{planetas.properties.name}
 								</h5>
-								<Link
-									to={`planets/${planetas.uid}`}
-									className="btn btn-primary">
-									View Details
-								</Link>
+								<p> Population: {planetas.properties.population} <br />
+									Terrain: {planetas.properties.terrain}
+								</p>
+
+								<div className="container d-flex justify-content-between">
+									<Link
+										to={`planets/${planetas.uid-1}`}
+										className="btn btn-primary">
+										View Details
+									</Link>
+									<button
+											className="btn btn-danger bg-light" onClick={()=>{
+												actions.addFavs(planetas.properties.name)
+											}}>
+											<i className="far fa-heart cora"></i>
+									</button>
+								</div>
 							</div>
 						</div>
 					))}

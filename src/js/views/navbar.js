@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-	const { store } = useContext(Context)
+	const { store, actions } = useContext(Context)
 	return (
 		<>
 			<nav className="navbar navbar-light bg-light">
@@ -21,13 +21,13 @@ export const Navbar = () => {
 						<div className="btn-group">
 							<button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 								Favorites
+								<span className="badge bg-secondary ms-1 parche">{store.favorites.length}</span>
 							</button>
-							{/* {store.favorites.map((favs, index) => 
-							(
-								<ul key={index} className="dropdown-menu">
-									<li><a className="dropdown-item" href="#">{favs}</a></li>
-								</ul>
-							))} */}
+									<ul className="dropdown-menu">
+										{store.favorites.map((item,index)=> (
+												<li key={index}><span className="dropdown-item d-flex justify-content-between align-items-center">{item}<button type="button" className="btn" onClick={()=>{actions.deleteFavs(index)}}><i className="fas fa-trash"></i></button></span></li>
+										))}
+									</ul>
 						</div>
 					</div>
 				</div>

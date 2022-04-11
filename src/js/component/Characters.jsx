@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useContext} from "react";
+import { useContext, useState} from "react";
 import { Context } from "../store/appContext";
 
 const Characters = () => {
 	const {store, actions} = useContext(Context)
+	const [added, setAdded] = useState(false)
 
 	return (
 		<>
@@ -20,19 +21,25 @@ const Characters = () => {
 							/>
 							<div className="card-body">
 								<h5 className="card-title">
-									{personajes.name}
+									{personajes.properties.name}
 								</h5>
+								<p> Gender: {personajes.properties.gender} <br />
+								    Hair Color: {personajes.properties.hair_color} <br />
+									Eye Color: {personajes.properties.eye_color}
+								</p>
+								
                                 <div className="container d-flex justify-content-between">
                                     <Link
-                                        to={`people/${personajes.uid}`}
+                                        to={`people/${personajes.uid-1}`}
                                         className="btn btn-primary">
                                         View Details
                                     </Link>
                                     <button
-                                        className="btn btn-danger" onClick={()=>{
-											actions.addFavs(personajes.name)
+                                        className="btn btn-danger bg-light" onClick={()=>{
+											actions.addFavs(personajes.properties.name)
+											setAdded(true)
 										}}>
-                                        <i className="fa-regular fa-heart"></i>
+                                        <i className="far fa-heart cora"></i>
                                     </button>
                                 </div>
 							</div>
