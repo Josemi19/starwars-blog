@@ -5,15 +5,13 @@ import { Context } from "../store/appContext";
 
 const Characters = () => {
 	const {store, actions} = useContext(Context)
-	const [added, setAdded] = useState(false)
-
 	return (
 		<>
 			<h1 className="ms-5 header">Characters</h1>
 			<div className="container ms-5 mb-3 scroll">
 				<div className="d-inline-flex">
-					{store.people.map((personajes) => (
-						<div key={personajes.uid} className="card col-2 m-3">
+					{store.people[0].map((personaje) => (
+						<div key={personaje.id} className="card col-2 m-3 tarjeta">
 							<img
 								src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640"
 								className="card-img-top"
@@ -21,23 +19,22 @@ const Characters = () => {
 							/>
 							<div className="card-body">
 								<h5 className="card-title">
-									{personajes.properties.name}
+									{personaje.nombre}
 								</h5>
-								<p> Gender: {personajes.properties.gender} <br />
-								    Hair Color: {personajes.properties.hair_color} <br />
-									Eye Color: {personajes.properties.eye_color}
+								<p> Gender: {personaje.gender} <br />
+								    Hair Color: {personaje.hair_color} <br />
+									Eye Color: {personaje.eye_color}
 								</p>
 								
                                 <div className="container d-flex justify-content-between">
                                     <Link
-                                        to={`people/${personajes.uid-1}`}
+                                        to={`people/${personaje.id-1}`}
                                         className="btn btn-primary">
                                         View Details
                                     </Link>
                                     <button
                                         className="btn btn-danger bg-light" onClick={()=>{
-											actions.addFavs(personajes.properties.name)
-											setAdded(true)
+											actions.addFavs("personaje",personaje.nombre)
 										}}>
                                         <i className="far fa-heart cora"></i>
                                     </button>
