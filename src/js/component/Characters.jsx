@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext, useState} from "react";
 import { Context } from "../store/appContext";
+import foto from "../../../docs/assets/IMG-20220719-WA0000.jpg"
 
 const Characters = () => {
 	const {store, actions} = useContext(Context)
@@ -13,7 +14,7 @@ const Characters = () => {
 					{store.people[0].map((personaje) => (
 						<div key={personaje.id} className="card col-2 m-3 tarjeta">
 							<img
-								src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640"
+								src={foto}
 								className="card-img-top"
 								alt="..."
 							/>

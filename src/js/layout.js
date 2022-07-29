@@ -8,6 +8,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./views/navbar.js";
 import { Footer } from "./views/footer";
+import Random from "./component/Random.jsx";
 
 //create your first component
 const Layout = () => {
@@ -23,6 +24,7 @@ const Layout = () => {
 					<Routes>
 						<Route path="/" element={<Home />}/>
 						<Route path=":nature/:id" element={<Details/>}/>
+						<Route path="/random" element={<Random/>}/>
 						<Route path="*" element={<h1>Not Found</h1>}/>
 					</Routes>
 					<Footer />
